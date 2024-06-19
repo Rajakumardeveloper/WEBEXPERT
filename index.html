@@ -24,4 +24,26 @@
   </div>
   </div>
   </body>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script>
+  // Ensure the DOM is fully loaded before running any GSAP animations
+  document.addEventListener("DOMContentLoaded", function() {
+    // GSAP timeline for animations
+    var tl = gsap.timeline();
+
+    // Initial animation for the hero section (example: fade in)
+    tl.from(".hero", { duration: 1, opacity: 0, ease: "power2.out" });
+
+    // Animation for nav elements (example: slide in from the sides)
+    tl.from("nav img, nav a", { duration: 0.8, x: -50, opacity: 0, stagger: 0.2, ease: "power2.out" }, "-=0.5");
+
+    // Text animation for heading and paragraph
+    tl.from(".hero .info h2", { duration: 1, y: 50, opacity: 0, ease: "power2.out" }, "-=0.3");
+    tl.from(".hero .info p", { duration: 1, y: 50, opacity: 0, ease: "power2.out" }, "-=0.7");
+
+    // Footer animation (example: bounce in)
+    tl.from(".hero .fotter p, .hero .fotter a", { duration: 1, y: 50, opacity: 0, ease: "bounce.out" }, "-=0.5");
+  });
+  </script>
+    
 </html
