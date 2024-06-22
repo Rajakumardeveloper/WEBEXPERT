@@ -197,7 +197,7 @@
  }
    .services .text h2{
     padding-top: 40px;
-    font-size: 25px;
+    font-size: clamp(20px, 75%, 25px);
   }
   .services .text span{
     font-size: 20px;
@@ -218,7 +218,7 @@
       scroll-snap-type: x mandatory;
   }
 .project .contain .box{
-   min-width: 350px; /* Adjust minimum width if necessary */
+   min-width:clamp(320px, 75%, 350px); /* Adjust minimum width if necessary */
   height: 200px;/* Add margin between boxes */
   scroll-snap-align: center;
   margin: 30px;
