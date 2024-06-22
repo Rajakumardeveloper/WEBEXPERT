@@ -187,7 +187,7 @@
   }
    .hero .info h2{
      padding: 0px 10px;
-     font-size: 50px;
+     font-size: clamp(45px, 75%, 50px);
    }
    .hero .info p{
       margin-top: 28px;
@@ -197,12 +197,12 @@
  }
    .services .text h2{
     padding-top: 50px;
-    font-size: clamp(20px, 75%, 25px);
+    font-size: clamp(22px, 75%, 25px);
   }
   .services .text span{
     font-size:clamp(18px, 75%, 20px);
     margin-top: 2.5px;
-    margin-left: 30px;
+    margin-left: 29px;
   }
   .services .information h4{
     margin-top: 60px;
