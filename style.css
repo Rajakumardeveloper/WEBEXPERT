@@ -28,7 +28,7 @@
   }
   .hero{
     width: 100vw;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -99,9 +99,8 @@
   }
 #services {
       width: 100%;
-      height: 100%;
+      height: 100vh;
       background-color:black;
-     margin-top: 10px;
       
     }
     #services .text {
@@ -176,6 +175,10 @@
   border-radius: 20px;
 }
 @media screen and (max-width: 600px){
+ .hero{
+    width: 100vw;
+    height: 100%;
+ }
   .hero nav img{
      height: 70px;
     width: 75px;
@@ -193,6 +196,11 @@
  .hero .fotter{
    margin-top: 100px;
  }
+  #services{
+    width:100%
+    height:100%;
+  margin-top:10px;
+  }
    #services .text h2{
     padding-top: 15px;
     font-size:22px;
