@@ -99,7 +99,7 @@
   }
 #services {
       width: 100%;
-      height: 100vh;
+      height: 100%;
       background-color:black;
      margin-top: 10px;
       
@@ -158,7 +158,7 @@
     }
 .project .contain {
   width: 100%; /* Ensure width is sufficient */
-  height: 45vh;
+  height: 300px;
   display: flex;
   margin-top: 15px;
   overflow-x: auto;
@@ -212,18 +212,19 @@
        font-size: 29px;
      }
   .project .contain{
-     height: 38vh;
+     height: 250px;
       scroll-snap-type: x mandatory;
+      
   }
 .project .contain .box{
    min-width: 340px; /* Adjust minimum width if necessary */
    max-width: 350px;
   height: 200px;/* Add margin between boxes */
   scroll-snap-align: center;
-  margin: 30px;
+  margin: 30px 40px;
  
 }
 }
 
 
-    
+      
