@@ -21,18 +21,19 @@
     }
   body,html{
     width: 100%;
-    height: 100%;
+    height: auto;
     background-color:black;
     scroll-behavior: smooth;
     scroll-padding-top: 0px;
   }
   .hero{
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-content: center;
-  
+  border-bottom: 1.5px solid grey;
+  padding-bottom: 20px;
   }
   .hero nav{
     height: 5rem;
@@ -62,8 +63,7 @@
   margin-top: 145px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
+  text-align: center;
   }
   .hero .info h2{
     font-family:kanji;
@@ -101,7 +101,7 @@
       width: 100%;
       height: 100vh;
       background-color:black;
-    
+     margin-top: 10px;
       
     }
     #services .text {
@@ -175,9 +175,6 @@
    scroll-snap-align: center;
   border-radius: 20px;
 }
-
-
-
 @media screen and (max-width: 600px){
   .hero nav img{
      height: 70px;
@@ -219,10 +216,14 @@
       scroll-snap-type: x mandatory;
   }
 .project .contain .box{
-   min-width: 350px; /* Adjust minimum width if necessary */
+   min-width: 340px; /* Adjust minimum width if necessary */
+   max-width: 350px;
   height: 200px;/* Add margin between boxes */
   scroll-snap-align: center;
   margin: 30px;
  
 }
 }
+
+
+    
