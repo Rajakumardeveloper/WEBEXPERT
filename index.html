@@ -1,98 +1,658 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="google-site-verification" content="PxcAVS3YY_jaBMcY0DjLs1YigvgZc-pFRv_ezMSsEmQ" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>WeExpets</title>
-      <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Raja Kumar | Glassmorphism Portfolio</title>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- GSAP for smooth advanced animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(145deg, #f5f7fe 0%, #eef2ff 100%);
+      color: #1e293b;
+      overflow-x: hidden;
+    }
+
+    /* glass morphism global */
+    .glass {
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(14px);
+      border-radius: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      border: 1px solid rgba(255,255,255,0.8);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    /* custom cursor - light playful */
+    .cursor-light {
+      width: 32px;
+      height: 32px;
+      background: rgba(99, 102, 241, 0.2);
+      backdrop-filter: blur(4px);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.2s ease;
+      border: 1px solid rgba(99,102,241,0.6);
+    }
+
+    .cursor-dot-light {
+      width: 6px;
+      height: 6px;
+      background: #4f46e5;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    section {
+      padding: 100px 6%;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* hero area vibrant */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: radial-gradient(circle at 80% 20%, rgba(79,70,229,0.08), rgba(255,255,255,0));
+    }
+
+    .hero-badge {
+      background: rgba(79,70,229,0.15);
+      backdrop-filter: blur(8px);
+      border-radius: 60px;
+      padding: 0.3rem 1rem;
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #4f46e5;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(79,70,229,0.3);
+    }
+
+    .hero-title {
+      font-size: 4.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #0f172a, #4f46e5, #ec489a);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 5s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .hero-desc {
+      font-size: 1.2rem;
+      color: #334155;
+      max-width: 520px;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .btn-glass {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid white;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #1e293b;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    .btn-glass-primary {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      box-shadow: 0 12px 25px -8px #4f46e5;
+    }
+
+    .btn-glass:hover {
+      transform: translateY(-4px);
+      gap: 12px;
+      background: white;
+    }
+
+    /* skill cards */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.8rem;
+      margin: 3rem 0;
+    }
+
+    .skill-item {
+      padding: 1.8rem 1rem;
+      text-align: center;
+      transition: all 0.35s ease;
+    }
+    .skill-item i {
+      font-size: 2.6rem;
+      background: linear-gradient(145deg, #4f46e5, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+    .skill-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: rgba(255,255,255,0.7);
+      border-color: #c7d2fe;
+    }
+
+    /* digital marketing chips */
+    .chip-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 2rem;
+    }
+    .chip {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(4px);
+      border-radius: 60px;
+      padding: 8px 24px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: 0.2s;
+      border: 1px solid rgba(79,70,229,0.3);
+    }
+    .chip i {
+      margin-right: 8px;
+      color: #4f46e5;
+    }
+    .chip:hover {
+      background: #4f46e5;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Projects grid - glass elegance */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .project-card {
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.2, 0.85, 0.4, 1);
+    }
+    .project-card:hover {
+      transform: translateY(-12px) rotateX(3deg);
+      background: rgba(255,255,255,0.7);
+      border-color: #a5b4fc;
+      box-shadow: 0 30px 45px -20px rgba(79,70,229,0.4);
+    }
+    .project-img {
+      height: 180px;
+      background: linear-gradient(125deg, #e0e7ff, #f5f3ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #4f46e5;
+    }
+    .project-content {
+      padding: 1.6rem;
+    }
+    .project-link {
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #4f46e5;
+      margin-top: 1rem;
+      transition: gap 0.2s;
+    }
+    .project-link i {
+      transition: transform 0.2s;
+    }
+    .project-link:hover {
+      gap: 12px;
+    }
+
+    /* extra services glass */
+    .services-trio {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .service-card {
+      flex: 1;
+      min-width: 220px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    /* section titles */
+    .section-sub {
+      text-align: center;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #4f46e5;
+    }
+    .section-main-title {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #1e293b, #4f46e5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* contact glass + info row */
+    .contact-info-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      font-size: 1rem;
+    }
+    .contact-info-row a {
+      text-decoration: none;
+      color: #1e293b;
+      background: rgba(255,255,255,0.6);
+      padding: 8px 20px;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .contact-info-row a:hover {
+      background: #4f46e5;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* footer */
+    footer {
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.7);
+    }
+
+    /* ===== FULLY RESPONSIVE FOR ALL MOBILE SIZES ===== */
+    @media (max-width: 1024px) {
+      .hero-title { font-size: 3.8rem; }
+      .section-main-title { font-size: 2.4rem; }
+    }
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.8rem; }
+      section { padding: 70px 5%; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .section-main-title { font-size: 2rem; }
+      .hero-desc { font-size: 1rem; }
+      .skill-grid { gap: 1rem; }
+      .skill-item { padding: 1.2rem 0.8rem; }
+      .btn-glass { padding: 10px 22px; font-size: 0.9rem; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2.2rem; }
+      .hero-badge { font-size: 0.7rem; }
+      .section-main-title { font-size: 1.8rem; }
+      .chip { padding: 6px 16px; font-size: 0.75rem; }
+      .project-content h3 { font-size: 1.2rem; }
+      .contact-info-row a { font-size: 0.8rem; padding: 6px 14px; }
+      .container { padding: 0 4px; }
+      .glass-card { border-radius: 1.5rem; }
+    }
+
+    /* unique floating animation */
+    @keyframes floatSoft {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-12px); }
+    }
+    .float-icon {
+      animation: floatSoft 3s infinite alternate ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom light cursor -->
+  <div class="cursor-light"></div>
+  <div class="cursor-dot-light"></div>
+
+  <!-- Hero section -->
   <div class="hero">
-    <nav>
-  <img src="/asstes/logo.png" alt="logo image">
- <a href="tel:+91 7479597096"> +91 7479597096</a>
-</nav>
-<div class="info">
-  <h2>WE DESIGN <span>&</span> DEVELOPE</h2>
-  <P>As your Expection</P>
-  </div>
-  <div class="fotter">
-    <p>Scroll</p>
-  <a href="#services"><i class="fa-solid fa-angles-down fa-bounce" style="color: #ffffff;"></i></a>
-  </div>
-  </div>
-    <div id="services">
-    <div class="text">
-      <h2>These Services We Can Provide <span class="span1">website</span><span class="span2">Design</span><span class="span3">SEO</span><span class="span4">develop</span></h2>
-    </div>
-    <div class="information">
-    <h4>Professional Website Designing Company in DELHI</h4>
-   
-    </div>
-    <div class="project">
-      <h3>See Our Projects ---</h3>
-      <div class="contain">
-        <div class="box">Box </div>
-        <div class="box">Box </div>
-        <div class="box">Box </div>
-       
+    <div class="container">
+      <div class="hero-badge"><i class="fas fa-magic"></i> Glassmorphism • Next-gen interface</div>
+      <h1 class="hero-title">Raja Kumar<br>Digital Alchemist</h1>
+      <p class="hero-desc">Web development, immersive design, and intelligent marketing — wrapped in pure glass aesthetics and fluid motion.</p>
+      <div style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
+        <a href="#projects" class="btn-glass btn-glass-primary"><i class="fas fa-glasses"></i> Explore work</a>
+        <a href="#contact" class="btn-glass"><i class="fas fa-comment-dots"></i> Let's talk</a>
       </div>
     </div>
   </div>
-  </body>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-<script>
-  // Ensure the DOM is fully loaded before running any GSAP animations
-  document.addEventListener("DOMContentLoaded", function() {
-    // GSAP timeline for animations
-    var tl = gsap.timeline();
 
-    // Initial animation for the hero section (example: fade in)
-    tl.from(".hero", { duration: 1, opacity: 0, ease: "power2.out" });
+  <!-- Skills Section with Glass Cards -->
+  <section>
+    <div class="container">
+      <div class="section-sub">expertise</div>
+      <h2 class="section-main-title">Crafting excellence across domains</h2>
+      <div class="skill-grid">
+        <div class="skill-item glass-card"><i class="fas fa-code"></i><h3>Website Dev</h3><p style="font-size:0.8rem;">React, Vue, performance-first</p></div>
+        <div class="skill-item glass-card"><i class="fas fa-pen-fancy"></i><h3>Web Designing</h3><p style="font-size:0.8rem;">UI/UX, animations, Framer</p></div>
+        <div class="skill-item glass-card"><i class="fas fa-brochure"></i><h3>Pamphlet Making</h3><p style="font-size:0.8rem;">Print & digital brochures</p></div>
+        <div class="skill-item glass-card"><i class="fas fa-palette"></i><h3>Poster Design</h3><p style="font-size:0.8rem;">Bold, viral visuals</p></div>
+        <div class="skill-item glass-card"><i class="fas fa-chart-line"></i><h3>Digital Marketing</h3><p style="font-size:0.8rem;">SEO, ads, growth strategy</p></div>
+      </div>
+      <div class="chip-cloud">
+        <div class="chip"><i class="fab fa-google"></i> Google Ads</div>
+        <div class="chip"><i class="fab fa-facebook"></i> Social Media</div>
+        <div class="chip"><i class="fas fa-chart-pie"></i> Data Analytics</div>
+        <div class="chip"><i class="fas fa-envelope"></i> Email Marketing</div>
+        <div class="chip"><i class="fas fa-tachometer-alt"></i> CRO</div>
+      </div>
+    </div>
+  </section>
 
-    // Animation for nav elements (example: slide in from the sides)
-    tl.from("nav img, nav a", { duration: 0.8, x: -50, opacity: 0, stagger: 0.2, ease: "power2.out" }, "-=0.5");
+  <!-- Projects Section (all 6 links) -->
+  <section id="projects" style="background: rgba(226,232,240,0.3);">
+    <div class="container">
+      <div class="section-sub">live showcase</div>
+      <h2 class="section-main-title">Recent creations — live & interactive</h2>
+      <div class="projects-grid">
+        <!-- project 1 -->
+        <div class="project-card glass-card">
+          <div class="project-img"><i class="fas fa-gem float-icon"></i></div>
+          <div class="project-content">
+            <h3>JP Jeweler Host</h3>
+            <p>Luxury jewelry showcase with smooth micro-interactions.</p>
+            <a href="https://rajakumardeveloper.github.io/JPjawelerhost/" target="_blank" class="project-link">Live Preview <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- project 2 -->
+        <div class="project-card glass-card">
+          <div class="project-img"><i class="fas fa-microphone-alt float-icon"></i></div>
+          <div class="project-content">
+            <h3>Janwar Bolte Hai</h3>
+            <p>Creative storytelling website with rich visuals.</p>
+            <a href="https://janwarboltehai.netlify.app/" target="_blank" class="project-link">Live Preview <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- project 3 -->
+        <div class="project-card glass-card">
+          <div class="project-img"><i class="fas fa-coins float-icon"></i></div>
+          <div class="project-content">
+            <h3>Re-Earn</h3>
+            <p>Rewards ecosystem with gamified interface.</p>
+            <a href="https://re-earn.netlify.app/" target="_blank" class="project-link">Live Preview <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- project 4 -->
+        <div class="project-card glass-card">
+          <div class="project-img"><i class="fas fa-car-side float-icon"></i></div>
+          <div class="project-content">
+            <h3>Vivek G Autom</h3>
+            <p>Automotive brand concept with modern layout.</p>
+            <a href="https://vivekgautom.netlify.app/" target="_blank" class="project-link">Live Preview <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- project 5 -->
+        <div class="project-card glass-card">
+          <div class="project-img"><i class="fas fa-dumbbell float-icon"></i></div>
+          <div class="project-content">
+            <h3>Fitness Tiger Club</h3>
+            <p>High-energy fitness platform, fully responsive.</p>
+            <a href="https://fitnesstigerclub.netlify.app/" target="_blank" class="project-link">Live Preview <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- project 6 -->
+        <div class="project-card glass-card">
+          <div class="project-img"><i class="fas fa-store float-icon"></i></div>
+          <div class="project-content">
+            <h3>Delhi Bazar</h3>
+            <p>Local marketplace reinvented with glass UI.</p>
+            <a href="https://delhibazar.netlify.app/" target="_blank" class="project-link">Live Preview <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    // Text animation for heading and paragraph
-    tl.from(".hero .info h2", { duration: 1, y: 50, opacity: 0, ease: "power2.out" }, "-=0.3");
-    tl.from(".hero .info p", { duration: 1, y: 50, opacity: 0, ease: "power2.out" }, "-=0.7");
+  <!-- Additional Pamphlet, Poster, Marketing services glass row -->
+  <section>
+    <div class="container">
+      <div class="section-sub">beyond code</div>
+      <h2 class="section-main-title">Design & marketing fusion</h2>
+      <div class="services-trio">
+        <div class="service-card glass-card">
+          <i class="fas fa-brochure" style="font-size: 2.5rem; color:#4f46e5;"></i>
+          <h3 style="margin: 1rem 0;">Pamphlet Making</h3>
+          <p>Stunning print & digital flyers that convert.</p>
+        </div>
+        <div class="service-card glass-card">
+          <i class="fas fa-poster" style="font-size: 2.5rem; color:#4f46e5;"></i>
+          <h3 style="margin: 1rem 0;">Poster Design</h3>
+          <p>Cinematic posters for events, launches, and social media.</p>
+        </div>
+        <div class="service-card glass-card">
+          <i class="fas fa-chart-simple" style="font-size: 2.5rem; color:#4f46e5;"></i>
+          <h3 style="margin: 1rem 0;">Digital Marketing</h3>
+          <p>SEO, paid ads, and viral growth strategies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    // Footer animation (example: bounce in)
-    tl.from(".hero .fotter p, .hero .fotter a", { duration: 1, y: 50, opacity: 0, ease: "bounce.out" }, "-=0.5");
-  });
-   document.addEventListener('DOMContentLoaded', function() {
-      var spans = document.querySelectorAll('#services .text span');
-      var index = 0;
-      var delayBetweenSpans = 2000; // Delay between each span (adjust as needed)
+  <!-- Contact glass section with mobile number and github link added -->
+  <section id="contact" style="background: linear-gradient(145deg, #ffffff80, #eef2ff80);">
+    <div class="container" style="text-align: center;">
+      <div class="glass" style="padding: 3rem 2rem; max-width: 800px; margin: 0 auto;">
+        <i class="fas fa-paper-plane" style="font-size: 2rem; color:#4f46e5;"></i>
+        <h2 style="font-size: 2rem; margin: 0.8rem 0;">Let's create magic</h2>
+        <p style="margin-bottom: 1.2rem;">Got a project? Whether it's a futuristic web app or a brand campaign — let's talk glass, motion, and results.</p>
+        
+        <!-- Added contact info: Mobile & GitHub -->
+        <div class="contact-info-row">
+          <a href="tel:+917479597096"><i class="fas fa-phone-alt"></i> +91 74795 97096</a>
+          <a href="https://github.com/Rajakumardeveloper" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          <a href="mailto:raja@creativeglass.com"><i class="fas fa-envelope"></i> Email</a>
+        </div>
 
-      function showNextSpan() {
-        // Hide the current span
-        if (index > 0) {
-          spans[index - 1].classList.remove('visible'); // Remove visible class from previous span
-        } else {
-          // If index is 0 (first run), hide the last span
-          spans[spans.length - 1].classList.remove('visible');
-        }
+        <div style="margin-top: 2rem;">
+          <a href="#" style="color:#4f46e5; font-size: 1.4rem; margin: 0 0.5rem;"><i class="fab fa-twitter"></i></a>
+          <a href="#" style="color:#4f46e5; font-size: 1.4rem; margin: 0 0.5rem;"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/Rajakumardeveloper" target="_blank" style="color:#4f46e5; font-size: 1.4rem; margin: 0 0.5rem;"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Show the next span
-        spans[index].classList.add('visible'); // Add class to make span visible
-        index++;
+  <footer>
+    <p>© 2026 Raja Kumar — Glassmorphism Portfolio | All projects live & fully responsive</p>
+    <p style="margin-top: 0.5rem;"><i class="fas fa-mobile-alt"></i> Fluid on every device • Unique animations • Light & airy</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;"><i class="fas fa-phone"></i> +91 7479597096 &nbsp;|&nbsp; <i class="fab fa-github"></i> github.com/Rajakumardeveloper</p>
+  </footer>
 
-        // Reset index if it exceeds the number of spans
-        if (index >= spans.length) {
-          index = 0;
-        }
-      }
+  <script>
+    // Init GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
 
-      // Start showing spans initially
-      showNextSpan();
+    // Custom light cursor (works on all screens, but hidden on touch to avoid issues)
+    if (window.matchMedia("(pointer: fine)").matches) {
+      const cursorLight = document.querySelector('.cursor-light');
+      const cursorDot = document.querySelector('.cursor-dot-light');
+      document.addEventListener('mousemove', (e) => {
+        gsap.to(cursorLight, { duration: 0.2, x: e.clientX - 16, y: e.clientY - 16 });
+        gsap.to(cursorDot, { duration: 0.05, x: e.clientX - 3, y: e.clientY - 3 });
+      });
 
-      // Set interval to continuously show spans
-      setInterval(showNextSpan, delayBetweenSpans);
+      const interactive = document.querySelectorAll('a, .btn-glass, .project-card, .skill-item, .chip');
+      interactive.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          gsap.to(cursorLight, { scale: 1.8, borderColor: '#4f46e5', backgroundColor: 'rgba(79,70,229,0.3)', duration: 0.3 });
+          gsap.to(cursorDot, { scale: 1.8, backgroundColor: '#4f46e5' });
+        });
+        el.addEventListener('mouseleave', () => {
+          gsap.to(cursorLight, { scale: 1, borderColor: 'rgba(79,70,229,0.6)', backgroundColor: 'rgba(99,102,241,0.2)', duration: 0.3 });
+          gsap.to(cursorDot, { scale: 1, backgroundColor: '#4f46e5' });
+        });
+      });
+    } else {
+      // hide custom cursors on touch devices
+      const cursors = document.querySelectorAll('.cursor-light, .cursor-dot-light');
+      cursors.forEach(c => c.style.display = 'none');
+    }
+
+    // Hero title animation
+    gsap.from('.hero-title', { duration: 1.2, y: 80, opacity: 0, ease: "power3.out", delay: 0.2 });
+    gsap.from('.hero-badge', { duration: 0.8, y: -30, opacity: 0, ease: "back" });
+    gsap.from('.hero-desc', { duration: 1, opacity: 0, x: -30, delay: 0.4 });
+    gsap.from('.btn-glass', { duration: 0.8, scale: 0.9, opacity: 0, stagger: 0.2, delay: 0.7 });
+
+    // skills cards appear stagger
+    gsap.utils.toArray('.skill-item').forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.6,
+        delay: i * 0.08,
+        ease: "back.out(0.5)"
+      });
     });
+
+    // project cards 3d entrance
+    gsap.utils.toArray('.project-card').forEach((card, idx) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+        },
+        scale: 0.92,
+        opacity: 0,
+        y: 40,
+        duration: 0.7,
+        delay: idx * 0.1,
+        ease: "elastic.out(0.8, 0.5)"
+      });
+    });
+
+    // chips cloud animation staggered
+    gsap.utils.toArray('.chip').forEach((chip, i) => {
+      gsap.from(chip, {
+        scrollTrigger: {
+          trigger: '.chip-cloud',
+          start: "top 90%",
+        },
+        scale: 0.7,
+        opacity: 0,
+        duration: 0.4,
+        delay: i * 0.03,
+      });
+    });
+
+    // Service cards animation
+    gsap.utils.toArray('.service-card').forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 88%",
+        },
+        rotateY: 12,
+        opacity: 0,
+        duration: 0.6,
+        delay: i * 0.1,
+      });
+    });
+
+    // contact glass pop
+    gsap.from('.glass', {
+      scrollTrigger: {
+        trigger: '#contact',
+        start: "top 80%",
+      },
+      scale: 0.95,
+      opacity: 0,
+      duration: 1,
+      ease: "power2.out"
+    });
+
+    // smooth anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === "#" || targetId === "") return;
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // add glass reflection effect on project cards
+    const projectImgs = document.querySelectorAll('.project-img');
+    projectImgs.forEach(img => {
+      img.addEventListener('mousemove', (e) => {
+        const rect = img.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        img.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.6), #e0e7ff)`;
+      });
+      img.addEventListener('mouseleave', () => {
+        img.style.background = "linear-gradient(125deg, #e0e7ff, #f5f3ff)";
+      });
+    });
+
+    console.log("✨ Glassmorphism portfolio with mobile number & GitHub — fully responsive, unique animations.");
   </script>
-    
-</html
+</body>
+</html>
